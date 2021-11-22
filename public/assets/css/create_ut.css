@@ -1,0 +1,31 @@
+
+/*
+
+### Grey left container ###
+
+ */
+.cube{
+    background-color: #E8E2E2 !important;
+    border-radius: 1rem;
+}
+
+
+
+/*
+
+### rigth blue menu with 2 buttons
+
+ */
+.menu{
+    background-color: #318CE7 !important;
+    border-radius: 1rem;
+}
+
+
+
+.flash-sucess{
+    background-color: #38DF67;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/create_ut.css") }}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    {% include '/header.html.twig' %}
+    <div class="container-fluid">
+        <h1 class="text-center mt-3 mb-3">Effectuer une recherche :</h1>
+        <div class="row">
+            <div class="cube col-md-9 ms-4">
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th>Identifiant </th>
+                        <th>Prénoms </th>
+                        <th>Nom de famille </th>
+                        <th>Date de naissance </th>
+                        <th>Identifiant carte </th>
+                        <th>Validité </th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.preUt }}</td>
+                            <td>{{ user.nomFamUt }}</td>
+                            <td>{{ user.dayBirthUt ? user.dayBirthUt|date('Y-m-d') : ''  }}</td>
+                            <td>{{ user.possede.id }}</td>
+
+                            {% if user.possede.cardVal == true %}
+                                <td style="background-color: green">
+                                    {{ user.possede.dcardEndVal ? user.possede.dcardEndVal|date('y-m-d') : '' }}
+                                </td>
+                            {% else %}
+                                <td style="background-color: red">
+                                    {{ user.possede.cardVal }}
+                                </td>
+                            {% endif %}
+                            <td>
+                                <div class="d-grid gap-2">
+                                    <a href="{{ path('utilisateurs_show', {'id': user.id}) }}">Voir Fiche</a>
+                                    <a href="{{ path('utilisateurs_edit', {'id': user.id}) }}">Modifier</a>
+                                </div>
+                            </td>
+                        </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="menu col-md-2 ms-3">
+                <div class="d-grid gap-2 m-3">
+                    {% include 'search/_recherche.html.twig' with {form: form} only %}
+                    <a href="{{ path('utilisateurs_index') }}" class="btn">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

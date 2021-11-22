@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/create_ut.css") }}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    {{ include('header.html.twig') }}
+    <div class="container-fluid">
+        <h1 class="text-center mt-3 mb-3">Utilisateur : {{ utilisateur.id }}</h1>
+        <div class="row">
+            <div class="cube col-md-9 ms-4">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Nom de famille :</th>
+                            <td>{{ utilisateur.nomFamUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom d'usage :</th>
+                            <td>{{ utilisateur.nomUsUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prénoms :</th>
+                            <td>{{ utilisateur.preUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de naissance :</th>
+                            <td>{{ utilisateur.dayBirthUt ? utilisateur.dayBirthUt|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Adresse principale :</th>
+                            <td>{{ utilisateur.firstAdressUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Complément d'adresse :</th>
+                            <td>{{ utilisateur.compAdressUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Ville :</th>
+                            <td>{{ utilisateur.cityUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Code postale :</th>
+                            <td>{{ utilisateur.cpUt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Crée le :</th>
+                            <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('d-m-y H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Dernière modification :</th>
+                            <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('d-m-y H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Crée par :</th>
+                            <td>{{ utilisateur.createdBy }}</td>
+                        </tr>
+                        <tr>
+                            <th>Modifié par :</th>
+                            <td>{{ utilisateur.updatedBy }}</td>
+                        </tr>
+                        <tr>
+                            <th>N° de Carte :</th>
+                            <td>{{ utilisateur.possede.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Validité :</th>
+                            {% if utilisateur.possede.cardVal == true %}
+                            <td style="background-color: green">Valide</td>
+                            {% else %}
+                            <td style="background-color: red">non-valide</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th>date de fin de validité :</th>
+                            <td>{{ utilisateur.possede.dcardEndVal ? utilisateur.possede.dcardEndVal|date('d-m-y') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="menu col-md-2 ms-3">
+                <div class="d-grid gap-2 mt-3 ms-2">
+                    <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}" class="btn text-center">Modifier</a>
+                    {{ include('utilisateurs/_delete_form.html.twig') }}
+                    <a href="{{ path('utilisateurs_index') }}" class="btn">Retour Index</a>
+                   <!-- <a href=" #path('export_data') }}" class="btn">exporter</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+    {{ form_start(form) }}
+
+        {{ form_row(form.prenoms) }}
+        {{ form_row(form.nomFam) }}
+        {{ form_row(form.nomUsa) }}
+        {{ form_row(form.birth) }}
+        {{ form_row(form.cimetieres) }}
+        <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+    {{ form_end(form) }}
