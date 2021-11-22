@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionnaire{% endblock %}
+
+{% block body %}
+    <h1>Gestionnaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ gestionnaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Iden_ges</th>
+                <td>{{ gestionnaire.idenGes }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ gestionnaire.roles ? gestionnaire.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ gestionnaire.password }}</td>
+            </tr>
+            <tr>
+                <th>Nom_ges</th>
+                <td>{{ gestionnaire.nomGes }}</td>
+            </tr>
+            <tr>
+                <th>Pren_ges</th>
+                <td>{{ gestionnaire.prenGes }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('gestionnaire_index') }}">back to list</a>
+
+    <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">edit</a>
+
+    {{ include('gestionnaire/_delete_form.html.twig') }}
+{% endblock %}
