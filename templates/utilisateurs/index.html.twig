@@ -70,9 +70,11 @@
                             <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">Modifier</a>
                         </td>
                         {% endfor %}
+
                     </tr>
                 </tbody>
             </table>
+            <a class="me-2 ms-2">{{ knp_pagination_render(utilisateurs) }}</a>
         </div>
         <div class="menu col-md-2 ms-3">
             <div class="d-grid gap-2 mt-3">
@@ -81,5 +83,6 @@
             </div>
         </div>
     </div>
+
 </div>
 {% endblock %}

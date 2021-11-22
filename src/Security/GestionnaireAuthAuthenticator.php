@@ -49,7 +49,13 @@ class GestionnaireAuthAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        /**
+         * orienter le gestionnaire selon son rôle sur sa page dédié aprés connexion
+         */
+        if($token->getRoleNames() === ['ROLE_SADMIN']){
+            return new RedirectResponse($this->urlGenerator->generate('gestionnaire_index'));
 
+        }else
         return new RedirectResponse($this->urlGenerator->generate('utilisateurs_index'));
     }
 

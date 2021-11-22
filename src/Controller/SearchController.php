@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Data\SearchData;
 use App\Form\SearchForm;
 use App\Repository\UtilisateursRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +18,18 @@ class SearchController extends AbstractController
      * @Route("/search", name="search")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function index(UtilisateursRepository $repository, Request $request): Response
+    public function index(UtilisateursRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
+
+
+
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
         $user = $repository->findSearch($data);
+
+
+
 
         return $this->render('search/search.html.twig', [
             'users' => $user,

@@ -8,35 +8,31 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Id :</th>
                 <td>{{ gestionnaire.id }}</td>
             </tr>
             <tr>
-                <th>Iden_ges</th>
+                <th>Identifiant du gestionnaire :</th>
                 <td>{{ gestionnaire.idenGes }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
+                <th>Roles :</th>
                 <td>{{ gestionnaire.roles ? gestionnaire.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ gestionnaire.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom_ges</th>
+                <th>Nom :</th>
                 <td>{{ gestionnaire.nomGes }}</td>
             </tr>
             <tr>
-                <th>Pren_ges</th>
+                <th>Prénom :</th>
                 <td>{{ gestionnaire.prenGes }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('gestionnaire_index') }}">back to list</a>
+    <a href="{{ path('gestionnaire_index') }}">Retour à l'index</a>
 
-    <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">edit</a>
+    <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">Modifier</a>
 
     {{ include('gestionnaire/_delete_form.html.twig') }}
 {% endblock %}

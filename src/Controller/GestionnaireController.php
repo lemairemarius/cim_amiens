@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Gestionnaire;
+use App\Entity\Utilisateurs;
 use App\Form\GestionnaireType;
 use App\Repository\GestionnaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,8 @@ class GestionnaireController extends AbstractController
     public function new(Request $request): Response
     {
         $gestionnaire = new Gestionnaire();
+        $user = new Utilisateurs();
+
         $form = $this->createForm(GestionnaireType::class, $gestionnaire);
         $form->handleRequest($request);
 

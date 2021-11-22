@@ -12,6 +12,7 @@ use App\Repository\CarteRepository;
 use App\Repository\CimetiereRepository;
 use App\Repository\UtilisateursRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,18 @@ class UtilisateursController extends AbstractController
      * @Route("/", name="utilisateurs_index", methods={"GET"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function index(UtilisateursRepository $utilisateursRepository, CarteRepository $carteRepository, CimetiereRepository $cimetiereRepository): Response
+    public function index(UtilisateursRepository $utilisateursRepository, CarteRepository $carteRepository, CimetiereRepository $cimetiereRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $ut = $this->getDoctrine()->getRepository(Utilisateurs::class)->findAll();
+
+        $page = $paginator ->paginate(
+            $ut,
+            $request->query->getInt('page',1),
+            8
+        );
+
         return $this->render('utilisateurs/index.html.twig', [
-            'utilisateurs' => $utilisateursRepository->findAll(),
+            'utilisateurs' => $page,
             'carte'=> $carteRepository->findAll(),
             'cim' => $cimetiereRepository->findAll(),
         ]);

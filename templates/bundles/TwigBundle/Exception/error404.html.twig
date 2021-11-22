@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Page introuvable !
+{% endblock %}
+
+{% block body %}
+
+    {{ include('./header.html.twig') }}
+
+    <h1 class="text-center mt-3">Page introuvable</h1>
+
+    <h2 class="text-center">Erreur 4<img class="logoM" style="width: 60px" src="{{ asset("/pictures/logoAmiensM.png") }}" alt="logoAmiensMetropole">4 !</h2>
+
+    <p class="text-center">Désolée mais il semblerait que cette page n'existe pas... veuillez cliquer sur le lien afin d'être redirigé vers la page index !
+        <br> lien page index === > <a href="{{ path('utilisateurs_index') }}">Retour Index</a></p>
+
+{% endblock %}
