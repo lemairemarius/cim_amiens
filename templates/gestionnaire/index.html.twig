@@ -1,41 +1,62 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/create_ut.css") }}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block title %}Gestionnaire index{% endblock %}
 
 {% block body %}
-    <h1>Gestionnaire index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Identifiant du Gestionnaire :</th>
-                <th>Roles :</th>
-                <th>Nom :</th>
-                <th>Prénom :</th>
-                <th>actions :</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for gestionnaire in gestionnaires %}
-            <tr>
-                <td>{{ gestionnaire.id }}</td>
-                <td>{{ gestionnaire.idenGes }}</td>
-                <td>{{ gestionnaire.roles ? gestionnaire.roles|json_encode : '' }}</td>
-                <td>{{ gestionnaire.nomGes }}</td>
-                <td>{{ gestionnaire.prenGes }}</td>
-                <td>
-                    <a href="{{ path('gestionnaire_show', {'id': gestionnaire.id}) }}">Voir</a>
-                    <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('gestionnaire_new') }}">Create new</a>
+    {{ include('header.html.twig') }}
+<div class="container-fluid">
+    <h1 class="text-center mt-3 mb-3">Gestionnaire index</h1>
+    <div class="row">
+        <div class="cube col-md-9 ms-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Identifiant du Gestionnaire :</th>
+                        <th>Roles :</th>
+                        <th>Nom :</th>
+                        <th>Prénom :</th>
+                        <th>actions :</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for gestionnaire in gestionnaires %}
+                    <tr>
+                        <td>{{ gestionnaire.id }}</td>
+                        <td>{{ gestionnaire.idenGes }}</td>
+                        <td>{{ gestionnaire.roles ? gestionnaire.roles|json_encode : '' }}</td>
+                        <td>{{ gestionnaire.nomGes }}</td>
+                        <td>{{ gestionnaire.prenGes }}</td>
+                        <td>
+                            <a href="{{ path('gestionnaire_show', {'id': gestionnaire.id}) }}">Voir</a>
+                            <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="menu col-md-2 ms-3">
+            <div class="d-grid gap-2 mt-3">
+                <a href="{{ path('gestionnaire_new') }}" class="btn">Crée un nouveau gestionnaire</a>
+                <a href="{{ path('utilisateurs_index') }}" class="btn">Gérer les utilisateurs</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
