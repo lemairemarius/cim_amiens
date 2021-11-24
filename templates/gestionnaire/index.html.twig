@@ -19,7 +19,7 @@
     <h1 class="text-center mt-3 mb-3">Gestionnaire index</h1>
     <div class="row">
         <div class="cube col-md-9 ms-4">
-            <table class="table">
+            <table class="table text-center">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -39,7 +39,7 @@
                         <td>{{ gestionnaire.nomGes }}</td>
                         <td>{{ gestionnaire.prenGes }}</td>
                         <td>
-                            <a href="{{ path('gestionnaire_show', {'id': gestionnaire.id}) }}">Voir</a>
+                            <a href="{{ path('gestionnaire_show', {'id': gestionnaire.id}) }}">Voir Fiche</a><br>
                             <a href="{{ path('gestionnaire_edit', {'id': gestionnaire.id}) }}">Modifier</a>
                         </td>
                     </tr>

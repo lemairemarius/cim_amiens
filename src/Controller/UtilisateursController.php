@@ -12,6 +12,8 @@ use App\Repository\CarteRepository;
 use App\Repository\CimetiereRepository;
 use App\Repository\UtilisateursRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +40,7 @@ class UtilisateursController extends AbstractController
             $request->query->getInt('page',1),
             8
         );
+
 
         return $this->render('utilisateurs/index.html.twig', [
             'utilisateurs' => $page,
@@ -141,6 +144,52 @@ class UtilisateursController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/data", name="utilisateurs_data", methods={"GET"})
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function utilisateursData(Utilisateurs $utilisateurs): Response
+    {
+        //On définit les options du pdf; utilisation du bundle Dompdf
+        $pdfOptions = new Options();
+        //police par défaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        //on instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' =>FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        //on genere le hmtl
+
+        $html= $this->renderView('utilisateurs/download.hmtl.twig',[
+            'utilisateurs' => $utilisateurs
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        //on genere un nom de ficher
+
+        $fichier = 'utilisateurs-data-'.$utilisateurs->getNomFamUt().'-'.$utilisateurs->getId().'.pdf';
+
+        //on envoie le pdf au navigateur
+
+        $dompdf->stream($fichier, [
+            'Attachement'=>true
+        ]);
+
+        return new Response();
+    }
+
+    /**
      * @Route("/{id}", name="utilisateurs_delete", methods={"POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
@@ -154,29 +203,4 @@ class UtilisateursController extends AbstractController
 
         return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    /**
-     * @Route("/export/{id}", name="export_data", methods={"GET"})
-     */
-    public function export(Request $request,Utilisateurs $utilisateurs, Carte $carte, Cimetiere $cimetiere): Response
-    {
-
-        $vairableCSV = "Nom; Prénoms; Nom d\'usage; Date de naissance; Adresse principal; Complément d\'adresse; Ville; Code postal; Crée le; Dernière modification;
-        Crée par; Modifier par; Date de fin de validité;\n";
-
-        $vairableCSV .= "$utilisateurs->getNomFamUt();$utilisateurs->getPre_ut();\n";
-
-        $vairableCSV .= " ; ; ;\n";
-
-
-        return new Response(
-            $vairableCSV,
-            200,
-            [
-                'content-Type' => 'application/vnd.ms-excel',
-                "Content-disposition" => "attachement; filename= utilisateur{{id}}.csv"
-            ]
-        );
-    }
-
 }

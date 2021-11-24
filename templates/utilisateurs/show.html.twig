@@ -78,9 +78,9 @@
                         <tr>
                             <th>Validité :</th>
                             {% if utilisateur.possede.cardVal == true %}
-                            <td style="background-color: green">Valide</td>
+                                <td style="background-color: green">Valide</td>
                             {% else %}
-                            <td style="background-color: red">non-valide</td>
+                                <td style="background-color: red">non-valide</td>
                             {% endif %}
                         </tr>
                         <tr>
@@ -93,9 +93,9 @@
             <div class="menu col-md-2 ms-3">
                 <div class="d-grid gap-2 mt-3 ms-2">
                     <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}" class="btn text-center">Modifier</a>
+                    <a href="{{ path('utilisateurs_data', {'id': utilisateur.id}) }}" class="btn">Exporter les données en .PDF</a>
                     {{ include('utilisateurs/_delete_form.html.twig') }}
                     <a href="{{ path('utilisateurs_index') }}" class="btn">Retour Index</a>
-                   <!-- <a href=" #path('export_data') }}" class="btn">exporter</a> -->
                 </div>
             </div>
         </div>

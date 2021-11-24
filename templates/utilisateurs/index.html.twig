@@ -66,9 +66,9 @@
                                 </td>
                             {% endif %}
                             <td>
-                            <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">Voir Fiche</a>
-                            <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">Modifier</a>
-                        </td>
+                                <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">Voir Fiche</a>
+                                <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">Modifier</a>
+                            </td>
                         {% endfor %}
                     </tr>
                 </tbody>
@@ -77,16 +77,14 @@
         </div>
         <div class="menu col-md-2 ms-3">
             <div class="d-grid gap-2 mt-3">
-                <a href="{{ path('utilisateurs_new') }}" class="btn">Créer nouvelle utilisateur</a>
                 <a href="{{ path('search') }}" class="btn">Rechercher</a>
+                <a href="{{ path('utilisateurs_new') }}" class="btn">Créer un nouvelle utilisateur</a>
 
-                <!--regarder pour le if ?-->
 
-                % if utilisateurs.gere.roles == ['ROLE_SADMIN'] %}
-
-                <a href="{{ path('gestionnaire_index') }}" class="btn">Gérer les gestionnaires</a>
-
-                % endif %}
+                <!--fait apparaitre le bouton gestion des gestionnaire seulement si un Sadmin est connecté -->
+                {% if app.user.roles == ['ROLE_SADMIN'] %}
+                    <a href="{{ path('gestionnaire_index') }}" class="btn">Gérer les gestionnaires</a>
+                {% endif %}
 
             </div>
         </div>

@@ -1,0 +1,84 @@
+{% extends "base-pdf.hmtl.twig" %}
+
+
+
+{% block title %}Liste des données de {{ utilisateurs.nomFamUt }} - id: {{ utilisateurs.id }}{% endblock%}
+
+{% block body %}
+    <div class="container-fluid">
+    <h1>Liste des données de {{ utilisateurs.preUt}} {{ utilisateurs.nomFamUt }} - id : {{ utilisateurs.id }}</h1>
+        <div class="row">
+            <div class="cube col-md-9 ms-4">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Nom de famille :</th>
+                        <td>{{ utilisateurs.nomFamUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom d'usage :</th>
+                        <td>{{ utilisateurs.nomUsUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénoms :</th>
+                        <td>{{ utilisateurs.preUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de naissance :</th>
+                        <td>{{ utilisateurs.dayBirthUt ? utilisateurs.dayBirthUt|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse principale :</th>
+                        <td>{{ utilisateurs.firstAdressUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Complément d'adresse :</th>
+                        <td>{{ utilisateurs.compAdressUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville :</th>
+                        <td>{{ utilisateurs.cityUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code postale :</th>
+                        <td>{{ utilisateurs.cpUt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Crée le :</th>
+                        <td>{{ utilisateurs.createdAt ? utilisateurs.createdAt|date('d-m-y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dernière modification :</th>
+                        <td>{{ utilisateurs.updatedAt ? utilisateurs.updatedAt|date('d-m-y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Crée par :</th>
+                        <td>{{ utilisateurs.createdBy }}</td>
+                    </tr>
+                    <tr>
+                        <th>Modifié par :</th>
+                        <td>{{ utilisateurs.updatedBy }}</td>
+                    </tr>
+                    <tr>
+                        <th>N° de Carte :</th>
+                        <td>{{ utilisateurs.possede.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Validité :</th>
+                        {% if utilisateurs.possede.cardVal == true %}
+                            <td style="background-color: green">Valide</td>
+                        {% else %}
+                            <td style="background-color: red">non-valide</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>date de fin de validité :</th>
+                        <td>{{ utilisateurs.possede.dcardEndVal ? utilisateurs.possede.dcardEndVal|date('d-m-y') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

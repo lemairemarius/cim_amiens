@@ -28,11 +28,15 @@ class SearchController extends AbstractController
         $form->handleRequest($request);
         $user = $repository->findSearch($data);
 
-
+        $page = $paginator ->paginate(
+            $user,
+            $request->query->getInt('page',1),
+            8
+        );
 
 
         return $this->render('search/search.html.twig', [
-            'users' => $user,
+            'users' => $page,
             'form' => $form->createView()
         ]);
     }
